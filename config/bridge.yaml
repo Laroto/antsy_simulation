@@ -1,0 +1,32 @@
+# ros_gz_bridge parameter_bridge config
+# todo: prefix 'odom' and 'joint_states' with 'sim'
+# to make clear they're ground truth?
+- gz_topic_name: /clock
+  ros_topic_name: clock
+  gz_type_name: gz.msgs.Clock
+  ros_type_name: rosgraph_msgs/msg/Clock
+  direction: GZ_TO_ROS
+
+- gz_topic_name: /antsy/odometry
+  ros_topic_name: odom
+  gz_type_name: gz.msgs.Odometry
+  ros_type_name: nav_msgs/msg/Odometry
+  direction: GZ_TO_ROS
+
+- gz_topic_name: /antsy/joint_state
+  ros_topic_name: joint_states
+  gz_type_name: gz.msgs.Model
+  ros_type_name: sensor_msgs/msg/JointState
+  direction: GZ_TO_ROS
+
+- gz_topic_name: /antsy/imu_sensor
+  ros_topic_name: imu
+  gz_type_name: gz.msgs.IMU
+  ros_type_name: sensor_msgs/msg/Imu
+  direction: GZ_TO_ROS
+
+- gz_topic_name: /actuators
+  ros_topic_name: actuators
+  gz_type_name: gz.msgs.Actuators
+  ros_type_name: actuator_msgs/msg/Actuators
+  direction: ROS_TO_GZ
