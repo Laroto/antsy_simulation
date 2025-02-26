@@ -23,7 +23,7 @@
   <node pkg="ros_gz_sim" exec="create" output="screen"
     args="
       -topic robot_description
-      -name hexapod
+      -name antsy
       -z 0.2
     "
   />

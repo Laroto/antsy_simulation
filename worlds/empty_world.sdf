@@ -2,7 +2,8 @@
 <!-- Copied and adapted slightly from car_world.sdf in Gazebo docs -->
 <sdf version="1.9">
     <world name="empty_world">
-        <physics name="1ms" type="ignored">
+        <!-- <physics name="1ms" type="ignored"> -->
+        <physics name="1ms" type="dart">
             <max_step_size>0.003</max_step_size>
             <real_time_factor>1.0</real_time_factor>
         </physics>
