@@ -1,48 +1,25 @@
 <launch>
   <!-- Arguments -->
-  <arg name="world" default="$(find-pkg-share antsy_simulation)/worlds/empty_world.sdf" />
   <arg name="run_headless" default="false" />
-  <arg name="run_on_start" default="true" />
   <arg name="publish_description" default="true" />
   <arg name="start_controller" default="true" />
   <arg name="use_sim_time" default="true" />
-  <arg name="spawn_z" default="0.2" />
-  <arg name="servo_velocity_limit" default="5.6" />
-  <arg name="servo_effort_limit" default="4.25" />
-  <arg name="servo_static_friction" default="0.3" />
-  <arg name="servo_damping_friction" default="0.1" />
-  <arg name="servo_p_gain" default="17.8" />
+  <arg name="model_path" default="$(find-pkg-share antsy_simulation)/mujoco/antsy.xml" />
+  <arg name="realtime_factor" default="1.0" />
+  <arg name="state_publish_rate" default="50.0" />
 
-  <let name="run_headless_args" value="-s" if="$(var run_headless)" />
-  <let name="run_headless_args" value="" unless="$(var run_headless)" />
-  <let name="run_on_start_args" value="-r" if="$(var run_on_start)" />
-  <let name="run_on_start_args" value="" unless="$(var run_on_start)" />
-
-  <!-- Simulator -->
-  <set_env name="GZ_SIM_RESOURCE_PATH" value="$(env GZ_SIM_RESOURCE_PATH ''):$(find-pkg-share antsy_description)/..:$(find-pkg-share antsy_simulation)/worlds" />
-  <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-    <arg name="gz_args" value="$(var run_headless_args) $(var run_on_start_args) $(var world)" />
-  </include>
+  <!-- MuJoCo simulator -->
+  <node pkg="antsy_simulation" exec="mujoco_simulator.py" name="mujoco_simulator" output="screen">
+    <param name="model_path" value="$(var model_path)" />
+    <param name="run_headless" value="$(var run_headless)" />
+    <param name="realtime_factor" value="$(var realtime_factor)" />
+    <param name="state_publish_rate" value="$(var state_publish_rate)" />
+  </node>
 
   <!-- Robot description -->
   <include file="$(find-pkg-share antsy_description)/launch/description.launch.py" if="$(var publish_description)">
     <arg name="use_sim_time" value="$(var use_sim_time)" />
-    <arg name="servo_velocity_limit" value="$(var servo_velocity_limit)" />
-    <arg name="servo_effort_limit" value="$(var servo_effort_limit)" />
-    <arg name="servo_static_friction" value="$(var servo_static_friction)" />
-    <arg name="servo_damping_friction" value="$(var servo_damping_friction)" />
-    <arg name="servo_p_gain" value="$(var servo_p_gain)" />
   </include>
-
-  <!-- ROS <=> Gazebo bridge -->
-  <node pkg="ros_gz_bridge" exec="parameter_bridge" name="gazebo_bridge" output="screen">
-    <param name="config_file" value="$(find-pkg-share antsy_simulation)/config/bridge.yaml" />
-  </node>
-
-  <!-- Spawn robot into Gazebo from robot_description. -->
-  <node pkg="ros_gz_sim" exec="create" output="screen"
-    args="-topic robot_description -name antsy -z $(var spawn_z)"
-  />
 
   <!-- Gait controller -->
   <include file="$(find-pkg-share antsy_control)/launch/follow_velocity_rectangle.launch.xml" if="$(var start_controller)">
