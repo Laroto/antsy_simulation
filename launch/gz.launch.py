@@ -1,19 +1,20 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, TimerAction, ExecuteProcess
-from launch_ros.actions import Node
+from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, ExecuteProcess
 from launch.substitutions import LaunchConfiguration, EnvironmentVariable
 import os
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    script_path = os.path.join(get_package_share_directory('antsy_simulation'), 'scripts', 'launch_gz_script.py')
+    share_dir = get_package_share_directory('antsy_simulation')
+    script_path = os.path.join(share_dir, 'scripts', 'launch_gz_script.py')
+    world_path = os.path.join(share_dir, 'worlds', 'empty_world.sdf')
 
     return LaunchDescription([
         # Arguments
         DeclareLaunchArgument(
             'world',
-            default_value=[EnvironmentVariable('AMENT_PREFIX_PATH'), '/share/antsy_simulation/worlds/empty_world.sdf'],
+            default_value=world_path,
             description='World file'
         ),
         DeclareLaunchArgument(

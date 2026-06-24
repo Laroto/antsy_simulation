@@ -8,6 +8,7 @@ install(
     config
     hooks
     launch
+    scripts
     worlds
   DESTINATION share/${PROJECT_NAME}
 )

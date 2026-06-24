@@ -32,7 +32,7 @@ def main():
     print(f"Starting Gazebo: {' '.join(gz_command)}")
 
     # Run Gazebo with correct environment variables
-    subprocess.run(gz_command, env=os.environ, shell=True)
+    subprocess.run(gz_command, env=os.environ, check=True)
 
 if __name__ == "__main__":
     main()
