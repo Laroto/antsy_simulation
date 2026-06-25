@@ -5,14 +5,15 @@ find_package(ament_cmake REQUIRED)
 
 install(
   DIRECTORY
-    config
-    hooks
     launch
-    scripts
-    worlds
+    mujoco
   DESTINATION share/${PROJECT_NAME}
 )
 
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/hooks/${PROJECT_NAME}.dsv.in")
+install(
+  PROGRAMS
+    scripts/mujoco_simulator.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()
