@@ -5,9 +5,19 @@
 
   <default>
     <joint damping="0.1" frictionloss="0.03" armature="0.001"/>
-    <geom contype="1" conaffinity="1" friction="1.2 0.02 0.001" rgba="0.33 0.45 1.0 1"/>
+    <geom contype="1" conaffinity="1" friction="1.2 0.02 0.001" rgba="0.33 0.45 1.0 0"/>
     <position kp="17.8" forcelimited="true" forcerange="-4.25 4.25"/>
+    <default class="visual">
+      <geom type="mesh" contype="0" conaffinity="0" density="0" group="2"/>
+    </default>
   </default>
+
+  <asset>
+    <mesh name="base_visual_mesh" file="meshes/frame_visual_low.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="coxa_visual_mesh" file="meshes/coxa_visual_low.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="tibia_visual_mesh" file="meshes/tibia_visual_low.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="foot_visual_mesh" file="meshes/foot_visual_low.stl" scale="0.001 0.001 0.001"/>
+  </asset>
 
   <worldbody>
     <light name="sun" pos="0 0 2.0" dir="0 0 -1"/>
@@ -15,19 +25,23 @@
 
     <body name="base_link" pos="0 0 0.105">
       <freejoint name="base_free"/>
-      <geom name="base" type="box" size="0.150 0.100 0.025" mass="0.9" rgba="1.0 0.6 0.0 1"/>
+      <geom name="base" type="box" size="0.150 0.100 0.025" mass="0.9" rgba="1.0 0.6 0.0 0"/>
+      <geom name="base_visual" class="visual" mesh="base_visual_mesh" euler="0 0 1.5707963268" rgba="1.0 0.6 0.0 1"/>
 
       <body name="leg_0" pos="0.138 0.0875 0" euler="0 0 0.5235963268">
         <body name="leg_0a">
           <joint name="leg_0_base__leg_0a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_0a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_0a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_0b" pos="0.04375 0 -0.010">
             <joint name="leg_0a__leg_0b" type="hinge" axis="0 -1 0" range="-1.309 2.00713"/>
             <geom name="leg_0b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_0b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_0c" pos="0.100 0 0">
               <joint name="leg_0b__leg_0c" type="hinge" axis="0 1 0" range="-2.0944 2.35619"/>
               <geom name="leg_0c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_0" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_0c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
@@ -37,13 +51,16 @@
         <body name="leg_1a">
           <joint name="leg_1_base__leg_1a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_1a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_1a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_1b" pos="0.04375 0 -0.010">
             <joint name="leg_1a__leg_1b" type="hinge" axis="0 -1 0" range="-1.309 2.00713"/>
             <geom name="leg_1b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_1b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_1c" pos="0.100 0 0">
               <joint name="leg_1b__leg_1c" type="hinge" axis="0 1 0" range="-2.0944 2.35619"/>
               <geom name="leg_1c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_1" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_1c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
@@ -53,13 +70,16 @@
         <body name="leg_2a">
           <joint name="leg_2_base__leg_2a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_2a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_2a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_2b" pos="0.04375 0 -0.010">
             <joint name="leg_2a__leg_2b" type="hinge" axis="0 -1 0" range="-1.309 2.00713"/>
             <geom name="leg_2b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_2b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_2c" pos="0.100 0 0">
               <joint name="leg_2b__leg_2c" type="hinge" axis="0 1 0" range="-2.0944 2.35619"/>
               <geom name="leg_2c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_2" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_2c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
@@ -69,13 +89,16 @@
         <body name="leg_3a">
           <joint name="leg_3_base__leg_3a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_3a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_3a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_3b" pos="0.04375 0 -0.010">
             <joint name="leg_3a__leg_3b" type="hinge" axis="0 1 0" range="-1.309 2.00713"/>
             <geom name="leg_3b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_3b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_3c" pos="0.100 0 0">
               <joint name="leg_3b__leg_3c" type="hinge" axis="0 -1 0" range="-2.0944 2.35619"/>
               <geom name="leg_3c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_3" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_3c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
@@ -85,13 +108,16 @@
         <body name="leg_4a">
           <joint name="leg_4_base__leg_4a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_4a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_4a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_4b" pos="0.04375 0 -0.010">
             <joint name="leg_4a__leg_4b" type="hinge" axis="0 1 0" range="-1.309 2.00713"/>
             <geom name="leg_4b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_4b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_4c" pos="0.100 0 0">
               <joint name="leg_4b__leg_4c" type="hinge" axis="0 -1 0" range="-2.0944 2.35619"/>
               <geom name="leg_4c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_4" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_4c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
@@ -101,13 +127,16 @@
         <body name="leg_5a">
           <joint name="leg_5_base__leg_5a" type="hinge" axis="0 0 1" range="-1.5708 1.5708"/>
           <geom name="leg_5a_geom" type="capsule" fromto="0 0 0 0.04375 0 0" size="0.018" mass="0.09"/>
+          <geom name="leg_5a_visual" class="visual" mesh="coxa_visual_mesh" rgba="0.33 0.45 1.0 1"/>
           <body name="leg_5b" pos="0.04375 0 -0.010">
             <joint name="leg_5a__leg_5b" type="hinge" axis="0 1 0" range="-1.309 2.00713"/>
             <geom name="leg_5b_geom" type="capsule" fromto="0 0 0 0.100 0 0" size="0.015" mass="0.08"/>
+            <geom name="leg_5b_visual" class="visual" mesh="tibia_visual_mesh" rgba="0.33 0.45 1.0 1"/>
             <body name="leg_5c" pos="0.100 0 0">
               <joint name="leg_5b__leg_5c" type="hinge" axis="0 -1 0" range="-2.0944 2.35619"/>
               <geom name="leg_5c_geom" type="capsule" fromto="0 0 0 0.150 0 0" size="0.014" mass="0.03"/>
               <geom name="foot_5" type="sphere" pos="0.150 0 0" size="0.013" mass="0.005"/>
+              <geom name="leg_5c_visual" class="visual" mesh="foot_visual_mesh" euler="0 -0.35 0" rgba="0.33 0.45 1.0 1"/>
             </body>
           </body>
         </body>
