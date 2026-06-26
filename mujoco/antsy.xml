@@ -5,7 +5,7 @@
 
   <default>
     <joint damping="0.1" frictionloss="0.03" armature="0.001"/>
-    <geom contype="1" conaffinity="1" friction="1.2 0.02 0.001" rgba="0.33 0.45 1.0 0"/>
+    <geom contype="1" conaffinity="1" friction="1.2 0.10 0.001" rgba="0.33 0.45 1.0 0"/>
     <position kp="17.8" forcelimited="true" forcerange="-4.25 4.25"/>
     <default class="visual">
       <geom type="mesh" contype="0" conaffinity="0" density="0" group="2"/>
